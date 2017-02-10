@@ -1,0 +1,3 @@
+using BOSSArrays
+
+ba = BOSSArray()
