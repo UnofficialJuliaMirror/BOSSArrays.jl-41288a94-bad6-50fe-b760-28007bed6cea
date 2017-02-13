@@ -14,7 +14,6 @@ resp = Requests.get(URI("https://api.theboss.io/v0.7/cutout/team2_waypoint"*
 fieldnames(resp)
 data = resp.data
 
-readbytes(resp)
 using Blosc
 Blosc.set_num_threads(div(Sys.CPU_CORES,2))
 data = Blosc.decompress(UInt8, data)
