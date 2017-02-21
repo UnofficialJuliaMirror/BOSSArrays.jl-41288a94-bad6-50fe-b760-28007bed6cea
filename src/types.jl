@@ -1,5 +1,5 @@
-const DEFAULT_COLL_NAME = "team2_waypoint"
-const DEFAULT_EXP_NAME = "pinky10"
+const DEFAULT_COLL_NAME = "jingpengw_test"
+const DEFAULT_EXP_NAME = "test"
 const DEFAULT_CHAN_NAME = "em"
 const DEFAULT_DATA_TYPE = UInt8
 const DEFAULT_RESOLUTION_LEVEL = 0
@@ -44,7 +44,7 @@ end
 #     end
 # end
 
-function BOSSArray(
+function BOSSArray(;
                     T               ::DataType  = DEFAULT_DATA_TYPE,
                     N               ::Int       = DEFAULT_ARRAY_DIMENSION,
                     collectionName  ::String    = DEFAULT_COLL_NAME,

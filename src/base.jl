@@ -1,4 +1,10 @@
+function Base.size{T,N}( ba::BOSSArray{T,N})
+    ([typemax(Int64) for i in 1:N]...)
+end
 
+function Base.reshape{T,N}( ba::BOSSArray{T,N}, newShape )
+    warn("BOSSArray do not support reshaping")
+end
 
 function Base.getindex{T}( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... )
     idxes = map(UnitRange, idxes)
@@ -34,7 +40,7 @@ function Base.getindex{T}( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... 
 end
 
 function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray{T,3},
-                            idxes::Union{UnitRange, Int})
+                            idxes::Union{UnitRange, Int}...)
     idxes = map(UnitRange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
@@ -45,6 +51,8 @@ function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray{T,3},
                     "/$(idxes[2].start-1):$(idxes[2].stop)"*
                     "/$(idxes[3].start-1):$(idxes[3].stop)"
     data = Blosc.compress( buffer )
-    resp = Requests.get(URI(urlPath); data = data, headers = ba.headers)
+    resp = Requests.post(URI(urlPath); data = data, headers = ba.headers)
+    @show resp
+    # @assert statuscode(resp) == 201
     return resp
 end
