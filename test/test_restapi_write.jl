@@ -11,11 +11,11 @@ headers = Dict("Authorization"          => "Token $(BOSS_TOKEN)",
                         "Accept"        => "application/blosc",
                         "Date"          => Dates.format(now(Dates.UTC), Dates.RFC1123Format))
 
-a = rand(UInt8, 512,512,16)
+a = rand(UInt8, 16, 512,512)
 data = Blosc.compress( a )
 
-resp = Requests.post(URI("https://api.theboss.io/v0.7/cutout/jingpengw_test"*
-                "/test/em/0/0:512/0:512/0:16/");
+resp = Requests.post(URI("https://api.theboss.io/v0.8/cutout/jingpengw_test"*
+                "/test/em/0/0:512/0:512/32:48/");
                 data = data,
                 headers = headers)
 
@@ -24,21 +24,19 @@ resp = Requests.post(URI("https://api.theboss.io/v0.7/cutout/jingpengw_test"*
 
 
 
-resp = Requests.get(URI("https://api.theboss.io/v0.7/cutout/jingpengw_test"*
-                "/test/em/0/0:512/0:512/0:16/");
+resp = Requests.get(URI("https://api.theboss.io/v0.8/cutout/jingpengw_test"*
+                "/test/em/0/0:512/0:512/32:48/");
                 headers = headers)
 
 data = resp.data
 
 
 b = Blosc.decompress(UInt8, data)
-b = reshape(b, (512,512,16))
+b = reshape(b, (16, 512,512))
 
 n = 0
 for i in eachindex(a)
     if a[i] != b[i]
-        @show a[i]
-        @show b[i]
         n+=1
     end
 end

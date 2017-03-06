@@ -1,6 +1,6 @@
 # test RESTful API first
-include("test_restapi_read.jl")
-include("test_restapi_write.jl")
+#include("test_restapi_read.jl")
+#include("test_restapi_write.jl")
 
 
 using BOSSArrays
