@@ -2,6 +2,14 @@ function Base.size{T,N}( ba::BOSSArray{T,N})
     ([typemax(Int64) for i in 1:N]...)
 end
 
+function Base.eltype{T,N}( ba::BOSSArray{T,N} )
+    T 
+end
+
+function Base.ndims{T,N}( ba::BOSSArray{T,N} )
+    N
+end
+
 function Base.reshape{T,N}( ba::BOSSArray{T,N}, newShape )
     warn("BOSSArray do not support reshaping")
 end
