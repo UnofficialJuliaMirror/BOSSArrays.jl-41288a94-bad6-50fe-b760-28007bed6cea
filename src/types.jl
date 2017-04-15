@@ -3,7 +3,7 @@ const DEFAULT_EXP_NAME = "test"
 const DEFAULT_CHAN_NAME = "em"
 const DEFAULT_DATA_TYPE = UInt8
 const DEFAULT_RESOLUTION_LEVEL = 0
-const DEFAULT_BOSSAPI_VERSION = "v0.8"
+const DEFAULT_BOSSAPI_VERSION = "v1"
 const DEFAULT_ARRAY_DIMENSION = 3
 
 immutable BOSSArray{T, N} <: AbstractArray
