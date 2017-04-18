@@ -60,7 +60,11 @@ function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray{T,3},
                     "/$(idxes[3].start-1):$(idxes[3].stop)"
     data = Blosc.compress( buffer )
     resp = Requests.post(URI(urlPath); data = data, headers = ba.headers)
-    @show resp
-    # @assert statuscode(resp) == 201
+    #@show resp
+
+    if statuscode(resp) != 201
+        error("writting to boss have error: $resp")
+    end
+        
     return resp
 end
