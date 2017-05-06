@@ -47,8 +47,10 @@ function Base.getindex{T}( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... 
     return data
 end
 
-function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray{T,3},
+function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray,
                             idxes::Union{UnitRange, Int}...)
+    @assert ndims(buffer)==3
+    buffer = convert(Array{T,3}, buffer)
     idxes = map(UnitRange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
@@ -59,12 +61,18 @@ function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray{T,3},
                     "/$(idxes[2].start-1):$(idxes[2].stop)"*
                     "/$(idxes[3].start-1):$(idxes[3].stop)"
     data = Blosc.compress( buffer )
-    resp = Requests.post(URI(urlPath); data = data, headers = ba.headers)
-    #@show resp
+    local resp 
+    for i in 1:3 
+        resp = Requests.post(URI(urlPath); data = data, headers = ba.headers)
+        if statuscode(resp) == 201
+            break
+        else
+            sleep(3)
+        end
+    end 
 
     if statuscode(resp) != 201
         error("writting to boss have error: $resp")
     end
-        
     return resp
 end
