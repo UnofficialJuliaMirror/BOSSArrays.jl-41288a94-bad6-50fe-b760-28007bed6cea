@@ -10,7 +10,7 @@ ba = BOSSArray( collectionName  = "jingpengw_test",
                 channelName     = "em")
 
 
-a = rand(UInt8, 200,200,10)
+a = rand(UInt8, 200,200,1)
 
 # the boss will overwrite zeros in the database, so make sure that all the value was overwritten by avoid zeros. 
 for i in eachindex(a)
@@ -19,9 +19,9 @@ for i in eachindex(a)
     end 
 end 
 
-ba[10001:10200, 10001:10200, 101:110] = a
+ba[10001:10200, 10001:10200, 101] = a
 
-b = ba[10001:10200, 10001:10200, 101:110]
+b = ba[10001:10200, 10001:10200, 101]
 
 #@show a
 #@show b

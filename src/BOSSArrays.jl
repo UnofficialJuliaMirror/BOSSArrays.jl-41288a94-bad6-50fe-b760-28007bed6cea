@@ -11,6 +11,5 @@ end
 
 include("types.jl")
 include("base.jl")
-include("utils.jl")
 
 end # end of module

@@ -14,8 +14,19 @@ function Base.reshape{T,N}( ba::BOSSArray{T,N}, newShape )
     warn("BOSSArray do not support reshaping")
 end
 
+"""
+transform int to a UnitRange
+"""
+function idx2unitrange( idx::Union{UnitRange, Int} )
+    if isa(idx, Int)
+        return idx:idx
+    else
+        return idx 
+    end
+end 
+
 function Base.getindex{T}( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... )
-    idxes = map(UnitRange, idxes)
+    idxes = map(idx2unitrange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
     urlPath = "$(ba.urlPrefix)/cutout/$(ba.collectionName)"*
@@ -31,7 +42,7 @@ function Base.getindex{T}( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... 
 end
 
 function Base.getindex{T}( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... )
-    idxes = map(UnitRange, idxes)
+    idxes = map(idx2unitrange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
     urlPath = "$(ba.urlPrefix)/cutout/$(ba.collectionName)"*
@@ -51,7 +62,7 @@ function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray,
                             idxes::Union{UnitRange, Int}...)
     @assert ndims(buffer)==3
     buffer = convert(Array{T,3}, buffer)
-    idxes = map(UnitRange, idxes)
+    idxes = map(idx2unitrange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
     urlPath = "$(ba.urlPrefix)/cutout/$(ba.collectionName)"*
