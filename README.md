@@ -1,6 +1,7 @@
 BOSS.jl
 ========
 [![Build Status](https://travis-ci.org/seung-lab/BOSSArrays.jl.svg?branch=master)](https://travis-ci.org/seung-lab/BOSSArrays.jl)
+
 Julia interface to [BOSS](https://github.com/jhuapl-boss/boss) for large scale image cutout.
 
 - Blosc compression to speed up data transer
