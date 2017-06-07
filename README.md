@@ -1,4 +1,4 @@
-BOSS.jl
+BOSSArrays.jl
 ========
 [![Build Status](https://travis-ci.org/seung-lab/BOSSArrays.jl.svg?branch=master)](https://travis-ci.org/seung-lab/BOSSArrays.jl)
 
