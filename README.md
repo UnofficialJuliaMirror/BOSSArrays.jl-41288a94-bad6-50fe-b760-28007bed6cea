@@ -21,9 +21,14 @@ export INTERN_TOKEN=98d060b8ecd983842bb0f105ea3ee91f75796306
 - `source ~/.bashrc`
 
 # Usage
-
+use it as a normal Julia Array
 ```
 using BOSSArrays
-ba = BOSSArray()
-arr = ba[10001:10200, 10001:10200, 1]
+ba = BOSSArray( collectionName  = "YourCollectionName",
+                experimentName  = "YourExperimentName",
+                channelName     = "YourChannelName")
+a = rand(UInt8, 200,200,3)
+ba[10001:10200, 10001:10200, 1:3] = a
+b = ba[10001:10200, 10001:10200, 1:3]
+@assert all(a.==b)
 ```
