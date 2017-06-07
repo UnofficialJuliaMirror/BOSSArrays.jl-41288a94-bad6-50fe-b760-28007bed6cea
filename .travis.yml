@@ -11,6 +11,7 @@ notifications:
 before_install:
     - julia -e 'Pkg.add("Blosc")'
     - julia -e 'Pkg.add("Requests")'
+    - julia -e 'Pkg.clone("https://github.com/seung-lab/BOSSArrays.jl.git")'
 
 script:
     - julia -e 'Pkg.test("BOSSArrays")'
