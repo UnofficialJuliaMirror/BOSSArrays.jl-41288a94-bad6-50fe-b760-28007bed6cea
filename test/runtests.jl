@@ -19,7 +19,7 @@ b = ba[10001:10002, 10001:10002, 101:101]
 @show a
 @show b
 
-@assert all(a==b)
+@assert all(a.==b)
 
 # @show arr
 

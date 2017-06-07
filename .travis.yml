@@ -1,0 +1,16 @@
+language: julia
+os:
+    - linux
+    - osx
+julia:
+    - 0.5
+
+notifications:
+    email: false
+
+before_install:
+    - julia -e 'Pkg.add("Blosc")'
+    - julia -e 'Pkg.add("Requests")'
+
+script:
+    - julia -e 'Pkg.test("BOSSArrays")'
