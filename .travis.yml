@@ -6,11 +6,8 @@ julia:
 
 notifications:
     email: false
-
-before_install:
-    - julia -e 'Pkg.add("Blosc")'
-    - julia -e 'Pkg.add("Requests")'
-    - julia -e 'Pkg.clone("https://github.com/seung-lab/BOSSArrays.jl.git")'
+git:
+  depth: 999999
 
 script:
-    - julia -e 'Pkg.test("BOSSArrays")'
+    - julia -e 'Pkg.clone(pwd()); Pkg.test("BOSSArrays")'
