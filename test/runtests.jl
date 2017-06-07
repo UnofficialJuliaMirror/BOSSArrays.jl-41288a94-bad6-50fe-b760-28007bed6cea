@@ -10,14 +10,21 @@ ba = BOSSArray( collectionName  = "jingpengw_test",
                 channelName     = "em")
 
 
-a = rand(UInt8, 2,2,1)
+a = rand(UInt8, 200,200,10)
 
-ba[10001:10002, 10001:10002, 101:101] = a
+# the boss will overwrite zeros in the database, so make sure that all the value was overwritten by avoid zeros. 
+for i in eachindex(a)
+    if a[i]== UInt8(0)
+        a[i] = UInt8(1)
+    end 
+end 
 
-b = ba[10001:10002, 10001:10002, 101:101]
+ba[10001:10200, 10001:10200, 101:110] = a
 
-@show a
-@show b
+b = ba[10001:10200, 10001:10200, 101:110]
+
+#@show a
+#@show b
 
 @assert all(a.==b)
 
