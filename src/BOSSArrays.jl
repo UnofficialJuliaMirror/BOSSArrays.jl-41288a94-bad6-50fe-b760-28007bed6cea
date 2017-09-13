@@ -6,7 +6,7 @@ using Blosc
 export BOSSArray
 
 function __init__()
-    Blosc.set_num_threads(div(Sys.CPU_CORES,2))
+    Blosc.set_num_threads(cld(Sys.CPU_CORES,2))
 end
 
 include("types.jl")
