@@ -1,16 +1,16 @@
-function Base.size{T,N}( ba::BOSSArray{T,N})
+function Base.size( ba::BOSSArray{T,N}) where {T,N}
     ([typemax(Int64) for i in 1:N]...)
 end
 
-function Base.eltype{T,N}( ba::BOSSArray{T,N} )
+function Base.eltype( ba::BOSSArray{T,N} ) where {T,N}
     T 
 end
 
-function Base.ndims{T,N}( ba::BOSSArray{T,N} )
+function Base.ndims( ba::BOSSArray{T,N} ) where {T,N}
     N
 end
 
-function Base.reshape{T,N}( ba::BOSSArray{T,N}, newShape )
+function Base.reshape( ba::BOSSArray{T,N}, newShape ) where {T,N}
     warn("BOSSArray do not support reshaping")
 end
 
@@ -25,7 +25,7 @@ function idx2unitrange( idx::Union{UnitRange, Int} )
     end
 end 
 
-function Base.getindex{T}( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... )
+function Base.getindex( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... ) where T
     idxes = map(idx2unitrange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
@@ -41,7 +41,7 @@ function Base.getindex{T}( ba::BOSSArray{T,3}, idxes::Union{UnitRange, Int} ... 
     return data
 end
 
-function Base.getindex{T}( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... )
+function Base.getindex( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... ) where T
     idxes = map(idx2unitrange, idxes)
     # construct the url
     # note that the start should -1 to match the coordinate system of numpy
@@ -58,8 +58,8 @@ function Base.getindex{T}( ba::BOSSArray{T,4}, idxes::Union{UnitRange, Int} ... 
     return data
 end
 
-function Base.setindex!{T}(ba::BOSSArray{T,3}, buffer::AbstractArray,
-                            idxes::Union{UnitRange, Int}...)
+function Base.setindex!(ba::BOSSArray{T,3}, buffer::AbstractArray,
+                         idxes::Union{UnitRange, Int}...) where T
     @assert ndims(buffer)==3
     buffer = convert(Array{T,3}, buffer)
     idxes = map(idx2unitrange, idxes)
