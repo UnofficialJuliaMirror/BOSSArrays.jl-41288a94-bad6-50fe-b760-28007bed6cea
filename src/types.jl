@@ -6,7 +6,7 @@ const DEFAULT_RESOLUTION_LEVEL = 0
 const DEFAULT_BOSSAPI_VERSION = "v1"
 const DEFAULT_ARRAY_DIMENSION = 3
 
-immutable BOSSArray{T, N} <: AbstractArray
+struct BOSSArray{T, N} <: AbstractArray
     urlPrefix       :: String
     collectionName  :: String
     experimentName  :: String
@@ -15,15 +15,15 @@ immutable BOSSArray{T, N} <: AbstractArray
     headers         :: Dict{String, String}
 end
 
-function (::Type{BOSSArray}){T}(
-            foo             ::Type{T},
-            N               ::Int,
-            urlPrefix       ::String,
-            collectionName  ::String,
-            experimentName  ::String,
-            channelName     ::String,
-            resolutionLevel ::Int,
-            headers         ::Dict{String, String} )
+function BOSSArray(
+         foo             ::Type{T},
+         N               ::Int,
+         urlPrefix       ::String,
+         collectionName  ::String,
+         experimentName  ::String,
+         channelName     ::String,
+         resolutionLevel ::Int,
+         headers         ::Dict{String, String} ) where T
     BOSSArray{T,N}(   urlPrefix, collectionName, experimentName,
                 channelName, resolutionLevel, headers)
 end
