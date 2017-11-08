@@ -2,7 +2,7 @@
 #include("test_restapi_read.jl")
 #include("test_restapi_write.jl")
 
-
+using Base.Test
 using BOSSArrays
 
 ba = BOSSArray( collectionName  = "jingpengw_test",
@@ -19,15 +19,16 @@ for i in eachindex(a)
     end 
 end 
 
-ba[10001:10200, 10001:10200, 101] = a
+@testset "test IO of BOSSArray" begin 
+    ba[10001:10200, 10001:10200, 101] = a
 
-b = ba[10001:10200, 10001:10200, 101]
+    b = ba[10001:10200, 10001:10200, 101]
 
-#@show a
-#@show b
+    #@show a
+    #@show b
 
-@assert all(a.==b)
-
+    @test all(a.==b)
+end 
 # @show arr
 
 

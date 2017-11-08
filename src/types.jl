@@ -6,7 +6,7 @@ const DEFAULT_RESOLUTION_LEVEL = 0
 const DEFAULT_BOSSAPI_VERSION = "v1"
 const DEFAULT_ARRAY_DIMENSION = 3
 
-struct BOSSArray{T, N} <: AbstractArray
+struct BOSSArray{T, N} <: AbstractArray{T,N}
     urlPrefix       :: String
     collectionName  :: String
     experimentName  :: String
